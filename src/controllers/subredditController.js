@@ -17,7 +17,7 @@ const createSubreddit = async (req, res) => {
 
 const getAsubreddit = async (req, res) => {
   try {
-    const subreddit = await SubReddit.findById(res.params.id);
+    const subreddit = await SubReddit.findById(req.params.id);
     res
       .json({ subreddit, message: "Voici votre subreddit :" })
       .send(`${subreddit.title} && ${subreddit.content}`);
@@ -31,9 +31,9 @@ const getAsubreddit = async (req, res) => {
 
 const getAllSubreddits = async (req, res) => {
   try {
-    const subreddits = await Post.find();
+    const subreddits = await SubReddit.find();
     res
-      .json({ subreddits, message: "Voici tous subreddits :" })
+      .json({ subreddits, message: "Voici tous les subreddits :" })
       .send(`${subreddits.title} && ${subreddits.content}`);
   } catch (error) {
     res.json({ error: error.message });
@@ -46,7 +46,7 @@ const getAllSubreddits = async (req, res) => {
 const deleteSubreddit = async (req, res) => {
   try {
     const removeSubreddit = await SubReddit.findOneAndDelete({
-      _id: req.params.id_sub,
+      _id: req.params.id,
     });
     res.json({
       removeSubreddit,

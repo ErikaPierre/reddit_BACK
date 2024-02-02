@@ -7,8 +7,8 @@ import {
 
 const commentRouter = Router();
 
-commentRouter.post("/new-comment", createCommentInPost);
-commentRouter.put("/update-comment", editComment);
-commentRouter.delete("/remove-comment/:id", deleteComment);
+commentRouter.post("/:postID/new-comment", createCommentInPost);
+commentRouter.put("/:postID/update-comment", editComment);
+commentRouter.delete("/:postID/remove-comment/:id_post", deleteComment);
 
 export default commentRouter;

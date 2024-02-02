@@ -1,18 +1,20 @@
 import { Router } from "express";
 import {
   createPost,
+  createPostInSub,
   deletePost,
   editPost,
-  getAllPost,
+  getAllPosts,
   getApost,
 } from "../controllers/postController";
 
 const postRouter = Router();
 
 postRouter.post("/new-post", createPost);
-postRouter.get("/post/:id", getApost);
-postRouter.get("/all-post", getAllPost);
-postRouter.put("/update-post", editPost);
+postRouter.post(":id_post/add/:id_sub", createPostInSub);
+postRouter.get("/:id", getApost);
+postRouter.get("/all-posts", getAllPosts);
+postRouter.put("/update-post/:id", editPost);
 postRouter.delete("/remove-post/:id", deletePost);
 
 export default postRouter;

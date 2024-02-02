@@ -1,7 +1,7 @@
 import { Post } from "../models/postModel";
 import { SubReddit } from "../models/subredditModel";
 
-const getAllPost = async (req, res) => {
+const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find();
     res.json({ posts, message: "Here are all your posts." });
@@ -12,7 +12,7 @@ const getAllPost = async (req, res) => {
 
 const getApost = async (req, res) => {
   try {
-    const post = await Post.findById(res.params.id);
+    const post = await Post.findById(req.params.id);
     res.json({ post, message: "This is your post." });
   } catch (error) {
     res.json({ error: error.message });
@@ -20,14 +20,13 @@ const getApost = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  const { title, content, userName, subReddit, comments } = req.body;
+  const { title, content } = req.body;
+  const userName = req.params.id;
   try {
     const newPost = await Post.create({
       title: title,
       content: content,
       userName: userName,
-      subReddit: subReddit,
-      comments: comments,
     });
     res.json({ newPost, message: "Your post has been succefully create." });
   } catch (error) {
@@ -59,7 +58,7 @@ const createPostInSub = async (req, res) => {
 const editPost = async (req, res) => {
   try {
     const updatePost = await Post.findByIdAndUpdate(
-      { _id: req.params.id_post },
+      { _id: req.params.id },
       req.body,
       { new: true }
     );
@@ -78,7 +77,7 @@ const editPost = async (req, res) => {
 
 const deletePost = async (req, res) => {
   try {
-    const removePost = await Post.findOneAndDelete({ _id: req.params.id_post });
+    const removePost = await Post.findOneAndDelete({ _id: req.params.id });
     res.json({
       removePost,
       message: "Your post has been succefully deleted",
@@ -93,7 +92,7 @@ const deletePost = async (req, res) => {
 };
 
 export {
-  getAllPost,
+  getAllPosts,
   getApost,
   createPost,
   createPostInSub,

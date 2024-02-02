@@ -1,3 +1,4 @@
+import { generateAuthToken } from "../middlewares/auth";
 import User from "../models/userModel";
 
 const inscription = async (req, res) => {
@@ -11,8 +12,8 @@ const inscription = async (req, res) => {
     newUser.save();
 
     const token = generateAuthToken(newUser);
-    
-    res.send({ newUser, token });
+
+    res.send({ newUser, token, message: "Vous êtes maintenant inscrit" });
   } catch (error) {
     res.send(error);
   }
