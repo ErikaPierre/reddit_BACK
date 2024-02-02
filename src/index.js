@@ -6,6 +6,7 @@ import userRouter from "./routes/userRouter";
 import subredditRouter from "./routes/subredditRouter";
 import postRouter from "./routes/postRouter";
 import commentRouter from "./routes/commentRouter";
+import { auth } from "./middlewares/auth";
 
 dotenv.config();
 
@@ -25,9 +26,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/auth", userRouter);
-app.use("/auth/subreddit", subredditRouter);
-app.use("/auth/post", postRouter);
-app.use("/auth/comment", commentRouter);
+app.use("/auth/subreddit", auth, subredditRouter);
+app.use("/auth/post", auth, postRouter);
+app.use("/auth/comment", auth, commentRouter);
 
 app.get("/", (req, res) => {
   res.send("Welcom on API Reddit");

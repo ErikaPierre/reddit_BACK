@@ -10,10 +10,10 @@ import {
 
 const postRouter = Router();
 
-postRouter.post("/new-post", createPost);
-postRouter.post(":id_post/add/:id_sub", createPostInSub);
-postRouter.get("/:id", getApost);
 postRouter.get("/all-posts", getAllPosts);
+postRouter.get("/:id", getApost);
+postRouter.post("/new-post", createPost);
+postRouter.post("/:id_post/add/:id_sub", createPostInSub);
 postRouter.put("/update-post/:id", editPost);
 postRouter.delete("/remove-post/:id", deletePost);
 

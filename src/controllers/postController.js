@@ -3,7 +3,7 @@ import { SubReddit } from "../models/subredditModel";
 
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate("comments");
     res.json({ posts, message: "Here are all your posts." });
   } catch (error) {
     res.json({ error: error.message });
